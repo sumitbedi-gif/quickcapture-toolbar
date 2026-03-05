@@ -1,0 +1,3 @@
+/* Hover highlight is now handled via JS in App.tsx (hoverOverlayRef)
+   for a true inspector-feel that targets any DOM element, not just
+   data-element-id wrappers. This file is kept for reference. */
