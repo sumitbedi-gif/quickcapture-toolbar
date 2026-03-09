@@ -172,7 +172,7 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
   const activeStep = steps.find(s => s.id === activeStepId) || steps[0];
 
   return (
-    <div className="bg-white flex flex-col overflow-clip relative rounded-[16px] shadow-[0px_24px_48px_-12px_rgba(16,24,40,0.18)] max-w-[860px] w-fit">
+    <div className="bg-white flex flex-col overflow-clip relative rounded-[16px] shadow-[0px_24px_48px_-12px_rgba(16,24,40,0.18)] w-[860px]">
 
       {/* Header */}
       <div className="flex flex-col items-center gap-[10px] pt-[28px] pb-[20px] px-[24px]">
@@ -206,18 +206,18 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
           ))}
         </div>
 
-        {/* Right: GIF panel — sized by the image itself */}
-        <div className="flex-1 min-w-0 rounded-[14px] overflow-hidden self-start">
-          <AnimatePresence mode="wait">
+        {/* Right: GIF panel — fixed size, never resizes on tab switch */}
+        <div className="flex-1 min-w-0 rounded-[14px] overflow-hidden bg-[#f6f7f9] relative" style={{ height: '340px' }}>
+          <AnimatePresence>
             <motion.img
               key={activeStepId}
               src={activeStep.gif}
               alt={activeStep.title}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.18 }}
-              className="block w-full h-auto"
+              exit={{ opacity: 0, position: 'absolute' }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 w-full h-full object-contain"
             />
           </AnimatePresence>
         </div>
