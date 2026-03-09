@@ -4,7 +4,7 @@ import svgPaths from "../../imports/svg-4vk0l22bqa";
 import imgTitle from "../../assets/02749286c7e109f7ec2b981d2999959d0d553bbc.png";
 
 function Logo() {
-  return <img src="/logos/logo.svg" alt="Whatfix" className="h-[32px] w-auto" />;
+  return <img src="/logos/logo.svg" alt="Whatfix" className="h-[44px] w-auto" />;
 }
 
 // Capture mode icons
