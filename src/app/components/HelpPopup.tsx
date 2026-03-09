@@ -142,28 +142,28 @@ const steps = [
     title: 'Capture and navigate',
     description: 'Click through the application as usual',
     icon: (isActive: boolean) => <Click color={isActive ? "#0975D7" : "#6B697B"} />,
-    video: '/videos/mode-1.mp4',
+    gif: '/gifs/mode-1.gif',
   },
   {
     id: 'hand',
     title: 'Capture without navigation',
     description: 'Record steps without page changes',
     icon: (isActive: boolean) => <HandClick color={isActive ? "#0975D7" : "#6B697B"} />,
-    video: '/videos/mode-2.mp4',
+    gif: '/gifs/mode-2.gif',
   },
   {
     id: 'floating',
     title: 'Free-floating step',
     description: 'Drag to capture a screenshot',
     icon: (isActive: boolean) => <Capture color={isActive ? "#0975D7" : "#6B697B"} />,
-    video: '/videos/mode-3.mp4',
+    gif: '/gifs/mode-3.gif',
   },
   {
     id: 'censor',
     title: 'Censor mode',
     description: 'Blur out sensitive information',
     icon: (isActive: boolean) => <Blur color={isActive ? "#0975D7" : "#6B697B"} />,
-    video: '/videos/censor-mode.mp4',
+    gif: '/gifs/censor-mode.gif',
   },
 ];
 
@@ -206,28 +206,19 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
           ))}
         </div>
 
-        {/* Right: video panel */}
+        {/* Right: GIF panel */}
         <div className="flex-1 min-w-0 rounded-[14px] overflow-hidden bg-slate-950 relative" style={{ minHeight: '300px' }}>
           <AnimatePresence mode="wait">
-            <motion.div
+            <motion.img
               key={activeStepId}
+              src={activeStep.gif}
+              alt={activeStep.title}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.18 }}
-              className="absolute inset-0"
-            >
-              <video
-                key={activeStepId}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-contain"
-              >
-                <source src={activeStep.video} type="video/mp4" />
-              </video>
-            </motion.div>
+              className="absolute inset-0 w-full h-full object-contain"
+            />
           </AnimatePresence>
         </div>
       </div>
