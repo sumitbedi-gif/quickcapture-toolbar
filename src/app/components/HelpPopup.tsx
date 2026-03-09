@@ -102,7 +102,7 @@ const steps = [
   {
     id: 'navigate',
     title: 'Capture and navigate',
-    description: 'Use this if you want to add only one tooltip per page',
+    description: 'Use this if you want to add tooltips as you navigate the app',
     icon: (isActive: boolean) => <Click color={isActive ? "#0975D7" : "#6B697B"} />,
     gif: '/gifs/mode-1.gif',
   },
