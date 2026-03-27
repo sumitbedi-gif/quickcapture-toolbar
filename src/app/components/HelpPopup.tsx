@@ -104,28 +104,28 @@ const steps = [
     title: 'Capture and navigate',
     description: 'Use this if you want to add tooltips as you navigate the app',
     icon: (isActive: boolean) => <Click color={isActive ? "#0975D7" : "#6B697B"} />,
-    gif: '/gifs/mode-1.gif',
+    video: '/Vids/Mode 1.mp4',
   },
   {
     id: 'hand',
     title: 'Capture without navigation',
     description: 'Use this when you want to add multiple tooltips on the same page',
     icon: (isActive: boolean) => <HandClick color={isActive ? "#0975D7" : "#6B697B"} />,
-    gif: '/gifs/mode-2.gif',
+    video: '/Vids/Mode 2.mp4',
   },
   {
     id: 'floating',
     title: 'Free-floating step',
     description: "Use this when you don't want to latch the tooltip on any element",
     icon: (isActive: boolean) => <Capture color={isActive ? "#0975D7" : "#6B697B"} />,
-    gif: '/gifs/mode-3.gif',
+    video: '/Vids/Mode 3.mp4',
   },
   {
     id: 'censor',
     title: 'Censor mode',
     description: 'Use this when you want to blur out sensitive information',
     icon: (isActive: boolean) => <Blur color={isActive ? "#0975D7" : "#6B697B"} />,
-    gif: '/gifs/censor-mode.gif',
+    video: '/Vids/Censor.mp4',
   },
 ];
 
@@ -168,13 +168,16 @@ export function HelpPopup({ onClose }: HelpPopupProps) {
           ))}
         </div>
 
-        {/* Right: GIF panel — fixed size, never resizes on tab switch */}
+        {/* Right: Video panel — fixed size, never resizes on tab switch */}
         <div className="flex-1 min-w-0 rounded-[14px] overflow-hidden bg-[#f6f7f9] relative" style={{ height: '340px' }}>
           <AnimatePresence>
-            <motion.img
+            <motion.video
               key={activeStepId}
-              src={activeStep.gif}
-              alt={activeStep.title}
+              src={activeStep.video}
+              autoPlay
+              loop
+              muted
+              playsInline
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, position: 'absolute' }}
