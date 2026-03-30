@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useDragControls } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue } from 'motion/react';
 import { Toolbar } from './components/Toolbar';
 import { FreeFloatingBanner, NavigationDisabledBanner } from './components/FreeFloatingBanner';
 import { Toaster } from './components/ui/sonner';
@@ -33,8 +33,35 @@ export default function App() {
   });
   const [postFinishMode, setPostFinishMode] = useState<'capture-navigate' | 'capture-stay' | null>(null);
 
-  const dragControls = useDragControls();
-  const viewportRef = useRef<HTMLDivElement>(null);
+  const toolbarX = useMotionValue(0);
+  const toolbarY = useMotionValue(0);
+  const toolbarContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleGripPointerDown = (e: React.PointerEvent) => {
+    const startX = e.clientX - toolbarX.get();
+    const startY = e.clientY - toolbarY.get();
+
+    const onMove = (ev: PointerEvent) => {
+      const el = toolbarContainerRef.current;
+      const newX = ev.clientX - startX;
+      const newY = ev.clientY - startY;
+      if (el) {
+        const w = el.offsetWidth;
+        const h = el.offsetHeight;
+        const baseLeft = window.innerWidth / 2 - 124;
+        const baseTop = window.innerHeight - 40 - h;
+        toolbarX.set(Math.max(-baseLeft + 8, Math.min(window.innerWidth - baseLeft - w - 8, newX)));
+        toolbarY.set(Math.max(-baseTop + 8, Math.min(40, newY)));
+      } else {
+        toolbarX.set(newX);
+        toolbarY.set(newY);
+      }
+    };
+
+    const onUp = () => window.removeEventListener('pointermove', onMove);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp, { once: true });
+  };
 
   // Censor mode state
   const censoredRefs = useRef<Map<string, HTMLElement>>(new Map());
@@ -265,7 +292,6 @@ export default function App() {
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <div
-      ref={viewportRef}
       className="fixed inset-0 flex flex-col bg-white"
       onMouseMove={handleMouseMove}
     >
@@ -483,14 +509,10 @@ export default function App() {
 
       {/* Toolbar + Banners */}
       <motion.div
-        drag
-        dragControls={dragControls}
-        dragListener={false}
-        dragMomentum={false}
-        dragConstraints={viewportRef}
+        ref={toolbarContainerRef}
         data-toolbar-root
         className="fixed bottom-10 z-50 flex flex-col items-start gap-0 select-none"
-        style={{ left: 'calc(50% - 124px)' }}
+        style={{ left: 'calc(50% - 124px)', x: toolbarX, y: toolbarY }}
       >
         <AnimatePresence mode="wait">
           {isFreeFloatingActive && (
@@ -543,7 +565,7 @@ export default function App() {
             onCancel={handleCancel}
             onHelp={handleHelp}
             onDone={handleDone}
-            onGripPointerDown={(e) => dragControls.start(e)}
+            onGripPointerDown={handleGripPointerDown}
           />
         </div>
       </motion.div>
