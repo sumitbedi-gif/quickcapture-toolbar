@@ -328,7 +328,7 @@ function StepCapture({
 
   return (
     <div
-      className="bg-[#1f1f32] flex h-[56px] items-center relative rounded-[12px] overflow-hidden shadow-2xl"
+      className="bg-[#1f1f32] flex h-[56px] items-center relative rounded-[12px] shadow-2xl"
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
