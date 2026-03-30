@@ -153,7 +153,7 @@ function BaseButton({ isActive, onClick, children, roundedClass, tooltip, varian
   const inactiveClass = variant === 'ghost' ? 'bg-transparent hover:bg-[#4d4c62]' : 'bg-[#3d3c52] hover:bg-[#4d4c62]';
   const button = (
     <div
-      className={`${isActive ? 'bg-white hover:bg-[#f0f0f5] [&_svg_path]:stroke-[#1f1f32] [&_svg_line]:stroke-[#1f1f32] [&_circle]:stroke-[#1f1f32]' : inactiveClass} content-stretch flex items-center justify-center overflow-clip p-[8px] relative ${roundedClass} shrink-0 cursor-pointer transition-colors`}
+      className={`${isActive ? 'bg-[#0975d7] hover:bg-[#0864b8]' : inactiveClass} content-stretch flex items-center justify-center overflow-clip p-[8px] relative ${roundedClass} shrink-0 cursor-pointer transition-colors`}
       onClick={onClick}
     >
       {children}
