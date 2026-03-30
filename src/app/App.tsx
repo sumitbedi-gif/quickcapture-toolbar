@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useDragControls } from 'motion/react';
 import { Toolbar } from './components/Toolbar';
 import { FreeFloatingBanner, NavigationDisabledBanner } from './components/FreeFloatingBanner';
 import { Toaster } from './components/ui/sonner';
@@ -15,7 +15,7 @@ export default function App() {
   const [stepCount, setStepCount] = useState(0);
   const [steps, setSteps] = useState<{id: string, number: number}[]>([]);
   const [nextStepNumber, setNextStepNumber] = useState(1);
-  const [activeTool, setActiveTool] = useState('none');
+  const [activeTool, setActiveTool] = useState('click');
   const [clickMode, setClickMode] = useState<'click' | 'hand' | 'capture'>('click');
   const [blurMode, setBlurMode] = useState<'censor' | 'multiselect'>('censor');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -32,6 +32,9 @@ export default function App() {
     show: false, stepNumber: 0, screenshot: null
   });
   const [postFinishMode, setPostFinishMode] = useState<'capture-navigate' | 'capture-stay' | null>(null);
+
+  const dragControls = useDragControls();
+  const viewportRef = useRef<HTMLDivElement>(null);
 
   // Censor mode state
   const censoredRefs = useRef<Map<string, HTMLElement>>(new Map());
@@ -226,7 +229,7 @@ export default function App() {
     setSteps([]);
     setStepCount(0);
     setNextStepNumber(1);
-    setActiveTool('none');
+    setActiveTool('click');
     setClickMode('click');
     setActivePage('main');
     setClickedElements([]);
@@ -262,6 +265,7 @@ export default function App() {
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <div
+      ref={viewportRef}
       className="fixed inset-0 flex flex-col bg-white"
       onMouseMove={handleMouseMove}
     >
@@ -478,9 +482,14 @@ export default function App() {
       </AnimatePresence>
 
       {/* Toolbar + Banners */}
-      <div
+      <motion.div
+        drag
+        dragControls={dragControls}
+        dragListener={false}
+        dragMomentum={false}
+        dragConstraints={viewportRef}
         data-toolbar-root
-        className="fixed bottom-10 z-50 flex flex-col items-start gap-0"
+        className="fixed bottom-10 z-50 flex flex-col items-start gap-0 select-none"
         style={{ left: 'calc(50% - 124px)' }}
       >
         <AnimatePresence mode="wait">
@@ -534,9 +543,10 @@ export default function App() {
             onCancel={handleCancel}
             onHelp={handleHelp}
             onDone={handleDone}
+            onGripPointerDown={(e) => dragControls.start(e)}
           />
         </div>
-      </div>
+      </motion.div>
 
       {/* Insert Card Animation (legacy, kept for compatibility) */}
       {showInsertCard.show && (

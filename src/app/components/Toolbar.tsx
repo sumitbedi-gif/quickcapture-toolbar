@@ -88,12 +88,10 @@ function Check() {
   );
 }
 
-function TrashIcon() {
+function CloseIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      <path d="M18 6L6 18M6 6l12 12" />
     </svg>
   );
 }
@@ -285,6 +283,7 @@ interface ToolbarStateProps {
   onDone?: () => void;
   steps?: Step[];
   onDeleteStep?: (id: string) => void;
+  onGripPointerDown?: (e: React.PointerEvent) => void;
 }
 
 // ─── Main Toolbar ──────────────────────────────────────────────────────────────
@@ -295,9 +294,11 @@ function StepCapture({
   clickMode, setClickMode,
   blurMode, setBlurMode,
   onRestart, onHelp, onDone,
+  onGripPointerDown,
 }: ToolbarStateProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isClickMenuOpen, setIsClickMenuOpen] = useState(false);
+  const [dropdownDirection, setDropdownDirection] = useState<'up' | 'down'>('up');
   const clickMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -333,7 +334,10 @@ function StepCapture({
       onMouseLeave={() => setIsExpanded(false)}
     >
       {/* Grip */}
-      <div className="flex items-center justify-center px-[10px] h-full cursor-move hover:bg-[#2b2b40] transition-colors shrink-0">
+      <div
+        className="flex items-center justify-center px-[10px] h-full cursor-move hover:bg-[#2b2b40] transition-colors shrink-0 touch-none rounded-l-[12px]"
+        onPointerDown={onGripPointerDown}
+      >
         <Grip />
       </div>
 
@@ -357,11 +361,13 @@ function StepCapture({
           <AnimatePresence>
             {isClickMenuOpen && (
               <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                initial={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                exit={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
                 transition={{ duration: 0.15 }}
-                className="absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left"
+                className={dropdownDirection === 'up'
+                  ? 'absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left'
+                  : 'absolute top-full left-0 mt-[14px] z-50 origin-top-left'}
               >
                 <ClickOptions
                   onSelect={(mode) => { setClickMode(mode); setActiveTool('click'); setIsClickMenuOpen(false); }}
@@ -373,7 +379,14 @@ function StepCapture({
           <SplitButton
             isActive={activeTool === 'click'}
             onSelect={() => setActiveTool('click')}
-            onDropdownClick={(e) => { e.stopPropagation(); setIsClickMenuOpen(prev => !prev); }}
+            onDropdownClick={(e) => {
+              e.stopPropagation();
+              if (!isClickMenuOpen) {
+                const rect = clickMenuRef.current?.getBoundingClientRect();
+                setDropdownDirection(rect && rect.top < 220 ? 'down' : 'up');
+              }
+              setIsClickMenuOpen(prev => !prev);
+            }}
             icon={getClickIcon()}
             tooltip={getClickTooltip()}
           />
@@ -434,10 +447,10 @@ function StepCapture({
                     className="bg-[#b3141d] flex items-center justify-center p-[8px] rounded-[8px] shrink-0 cursor-pointer hover:bg-[#921017] transition-colors"
                     onClick={onRestart}
                   >
-                    <TrashIcon />
+                    <CloseIcon />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent><p>Start over</p></TooltipContent>
+                <TooltipContent><p>Close</p></TooltipContent>
               </Tooltip>
 
               <Divider />
