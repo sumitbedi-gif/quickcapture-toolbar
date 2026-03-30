@@ -359,46 +359,43 @@ function StepCapture({
         </motion.p>
       </div>
 
-      {/* Capture split */}
-      <div className="relative pr-[6px]" ref={clickMenuRef}>
-        <AnimatePresence>
-          {isClickMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
-              transition={{ duration: 0.15 }}
-              className={dropdownDirection === 'up'
-                ? 'absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left'
-                : 'absolute top-full left-0 mt-[14px] z-50 origin-top-left'}
-            >
-              <ClickOptions
-                onSelect={(mode) => { setClickMode(mode); setActiveTool('click'); setIsClickMenuOpen(false); }}
-                currentMode={clickMode}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <SplitButton
-          isActive={activeTool === 'click'}
-          onSelect={() => setActiveTool('click')}
-          onDropdownClick={(e) => {
-            e.stopPropagation();
-            if (!isClickMenuOpen) {
-              const rect = clickMenuRef.current?.getBoundingClientRect();
-              setDropdownDirection(rect && rect.top < 220 ? 'down' : 'up');
-            }
-            setIsClickMenuOpen(prev => !prev);
-          }}
-          icon={getClickIcon()}
-          tooltip={getClickTooltip()}
-        />
-      </div>
-
-      <Divider />
-
-      {/* Pause | Censor */}
+      {/* Capture | Pause | Censor — one group */}
       <div className="flex items-center gap-[6px] px-[6px]">
+        <div className="relative" ref={clickMenuRef}>
+          <AnimatePresence>
+            {isClickMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                className={dropdownDirection === 'up'
+                  ? 'absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left'
+                  : 'absolute top-full left-0 mt-[14px] z-50 origin-top-left'}
+              >
+                <ClickOptions
+                  onSelect={(mode) => { setClickMode(mode); setActiveTool('click'); setIsClickMenuOpen(false); }}
+                  currentMode={clickMode}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <SplitButton
+            isActive={activeTool === 'click'}
+            onSelect={() => setActiveTool('click')}
+            onDropdownClick={(e) => {
+              e.stopPropagation();
+              if (!isClickMenuOpen) {
+                const rect = clickMenuRef.current?.getBoundingClientRect();
+                setDropdownDirection(rect && rect.top < 220 ? 'down' : 'up');
+              }
+              setIsClickMenuOpen(prev => !prev);
+            }}
+            icon={getClickIcon()}
+            tooltip={getClickTooltip()}
+          />
+        </div>
+
         <BaseButton
           isActive={activeTool === 'pause'}
           onClick={() => setActiveTool('pause')}

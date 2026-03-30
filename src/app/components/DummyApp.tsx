@@ -2,31 +2,31 @@ import React, { useState } from 'react';
 import { Users, TrendingUp, DollarSign, CheckSquare, Bell, Search, Plus, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 const contacts = [
-  { id: 'contact-row-1', name: 'Emily Watson', initials: 'EW', company: 'Acme Corp', status: 'Active' as const, value: '$12,400', lastActivity: '2h ago', color: 'bg-violet-500' },
-  { id: 'contact-row-2', name: 'James Rivera', initials: 'JR', company: 'TechFlow Inc', status: 'Prospect' as const, value: '$8,200', lastActivity: '1d ago', color: 'bg-sky-500' },
-  { id: 'contact-row-3', name: 'Sarah Chen', initials: 'SC', company: 'Blue Ocean Ltd', status: 'Active' as const, value: '$31,500', lastActivity: '4h ago', color: 'bg-emerald-500' },
-  { id: 'contact-row-4', name: 'Michael Park', initials: 'MP', company: 'Nexus Partners', status: 'Prospect' as const, value: '$5,700', lastActivity: '3d ago', color: 'bg-orange-500' },
+  { id: 'contact-row-1', name: 'Emily Watson', initials: 'EW', company: 'Acme Corp', status: 'Active' as const, value: '$12,400', lastActivity: '2h ago', color: 'bg-slate-700' },
+  { id: 'contact-row-2', name: 'James Rivera', initials: 'JR', company: 'TechFlow Inc', status: 'Prospect' as const, value: '$8,200', lastActivity: '1d ago', color: 'bg-slate-600' },
+  { id: 'contact-row-3', name: 'Sarah Chen', initials: 'SC', company: 'Blue Ocean Ltd', status: 'Active' as const, value: '$31,500', lastActivity: '4h ago', color: 'bg-slate-800' },
+  { id: 'contact-row-4', name: 'Michael Park', initials: 'MP', company: 'Nexus Partners', status: 'Prospect' as const, value: '$5,700', lastActivity: '3d ago', color: 'bg-slate-600' },
   { id: 'contact-row-5', name: 'Laura Knight', initials: 'LK', company: 'Summit Ventures', status: 'Inactive' as const, value: '$0', lastActivity: '2w ago', color: 'bg-slate-400' },
 ];
 
 const pipelineStages = [
-  { id: 'pipeline-prospecting', label: 'Prospecting', count: 12, value: '$48,000', widthPct: 100, color: 'bg-indigo-500' },
-  { id: 'pipeline-proposal', label: 'Proposal', count: 8, value: '$62,000', widthPct: 67, color: 'bg-violet-500' },
-  { id: 'pipeline-negotiation', label: 'Negotiation', count: 5, value: '$37,500', widthPct: 42, color: 'bg-purple-500' },
-  { id: 'pipeline-closed', label: 'Closed Won', count: 3, value: '$28,400', widthPct: 25, color: 'bg-emerald-500' },
+  { id: 'pipeline-prospecting', label: 'Prospecting', count: 12, value: '$48,000', widthPct: 100, color: 'bg-slate-800' },
+  { id: 'pipeline-proposal', label: 'Proposal', count: 8, value: '$62,000', widthPct: 67, color: 'bg-slate-800' },
+  { id: 'pipeline-negotiation', label: 'Negotiation', count: 5, value: '$37,500', widthPct: 42, color: 'bg-slate-800' },
+  { id: 'pipeline-closed', label: 'Closed Won', count: 3, value: '$28,400', widthPct: 25, color: 'bg-slate-800' },
 ];
 
 const activities = [
-  { id: 'activity-item-1', text: 'Emily Watson signed contract', time: '2m ago', dotColor: 'bg-emerald-500' },
-  { id: 'activity-item-2', text: 'New lead from TechFlow Inc', time: '1h ago', dotColor: 'bg-sky-500' },
-  { id: 'activity-item-3', text: 'Follow-up reminder: James Rivera', time: '3h ago', dotColor: 'bg-amber-500' },
-  { id: 'activity-item-4', text: 'Invoice #1047 paid — $12,400', time: 'Yesterday', dotColor: 'bg-violet-500' },
+  { id: 'activity-item-1', text: 'Emily Watson signed contract', time: '2m ago', dotColor: 'bg-slate-400' },
+  { id: 'activity-item-2', text: 'New lead from TechFlow Inc', time: '1h ago', dotColor: 'bg-slate-400' },
+  { id: 'activity-item-3', text: 'Follow-up reminder: James Rivera', time: '3h ago', dotColor: 'bg-slate-300' },
+  { id: 'activity-item-4', text: 'Invoice #1047 paid — $12,400', time: 'Yesterday', dotColor: 'bg-slate-400' },
 ];
 
 const statusConfig = {
-  Active:   { bg: 'bg-emerald-50', text: 'text-emerald-700', dot: 'bg-emerald-500' },
-  Prospect: { bg: 'bg-amber-50',   text: 'text-amber-700',   dot: 'bg-amber-500'   },
-  Inactive: { bg: 'bg-slate-100',  text: 'text-slate-500',   dot: 'bg-slate-400'   },
+  Active:   { bg: 'bg-slate-100', text: 'text-slate-700', dot: 'bg-slate-500' },
+  Prospect: { bg: 'bg-slate-100', text: 'text-slate-500', dot: 'bg-slate-400' },
+  Inactive: { bg: 'bg-slate-100', text: 'text-slate-400', dot: 'bg-slate-300' },
 };
 
 const navItems = [
@@ -110,7 +110,7 @@ export function DummyApp({
           onClick={() => handleClick('notifications-button', 'Notifications')}
         >
           <Bell className="w-4 h-4" />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-indigo-400 rounded-full" />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-slate-400 rounded-full" />
         </button>
         <button
           data-element-id="new-contact-button"
@@ -122,7 +122,7 @@ export function DummyApp({
         </button>
         <div
           data-element-id="user-avatar"
-          className={`w-8 h-8 bg-violet-500 rounded-full flex items-center justify-center text-xs font-semibold text-white ${cur}`}
+          className={`w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-xs font-semibold text-white ${cur}`}
           onClick={() => handleClick('user-avatar', 'User profile')}
         >
           SB
@@ -344,10 +344,10 @@ export function DummyApp({
             className="grid grid-cols-4 gap-5 mb-7"
           >
             {[
-              { id: 'stat-contacts-card', label: 'Total Contacts', value: '1,284', change: '+24 this week', changeColor: 'text-emerald-600', Icon: Users, iconBg: 'bg-indigo-50', iconColor: 'text-indigo-600' },
-              { id: 'stat-deals-card',    label: 'Open Deals',     value: '47',     change: '8 closing soon', changeColor: 'text-amber-600',   Icon: TrendingUp, iconBg: 'bg-violet-50', iconColor: 'text-violet-600' },
-              { id: 'stat-revenue-card',  label: 'Revenue MTD',    value: '$128,500', change: '↑ 12.4% vs last month', changeColor: 'text-emerald-600', Icon: DollarSign,  iconBg: 'bg-emerald-50', iconColor: 'text-emerald-600' },
-              { id: 'stat-tasks-card',    label: 'Active Tasks',   value: '13',     change: '4 overdue',      changeColor: 'text-rose-500',    Icon: CheckSquare, iconBg: 'bg-amber-50', iconColor: 'text-amber-600' },
+              { id: 'stat-contacts-card', label: 'Total Contacts', value: '1,284', change: '+24 this week',         changeColor: 'text-slate-500', Icon: Users,       iconBg: 'bg-slate-50', iconColor: 'text-slate-500' },
+              { id: 'stat-deals-card',    label: 'Open Deals',     value: '47',   change: '8 closing soon',        changeColor: 'text-slate-500', Icon: TrendingUp,  iconBg: 'bg-slate-50', iconColor: 'text-slate-500' },
+              { id: 'stat-revenue-card',  label: 'Revenue MTD',    value: '$128,500', change: '↑ 12.4% vs last month', changeColor: 'text-slate-500', Icon: DollarSign,  iconBg: 'bg-slate-50', iconColor: 'text-slate-500' },
+              { id: 'stat-tasks-card',    label: 'Active Tasks',   value: '13',   change: '4 overdue',              changeColor: 'text-slate-400', Icon: CheckSquare, iconBg: 'bg-slate-50', iconColor: 'text-slate-500' },
             ].map(({ id, label, value, change, changeColor, Icon, iconBg, iconColor }) => (
               <div
                 key={id}
