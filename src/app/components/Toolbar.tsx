@@ -440,7 +440,7 @@ function StepCapture({
           isActive={false}
           onClick={() => onRestart?.()}
           roundedClass="rounded-[8px]"
-          tooltip="Delete"
+          tooltip="Discard"
           variant="ghost"
         >
           <TrashIcon />
