@@ -38,7 +38,7 @@ function AddButton({ onClick }: { onClick: () => void }) {
 
 export function FreeFloatingBanner({ onAddStep }: { onAddStep: () => void }) {
   return (
-    <div className="bg-white flex items-center justify-between px-[16px] py-[12px] rounded-t-[12px] w-full border border-b-0 border-[#e4e4ed]">
+    <div className="bg-white flex items-center justify-between px-[16px] py-[12px] rounded-[12px] w-full border border-[#e4e4ed]">
       <p className="font-medium text-[14px] text-[#3d3c52] leading-[20px] whitespace-nowrap">Don't need a screenshot?</p>
       <AddButton onClick={onAddStep} />
     </div>
@@ -47,7 +47,7 @@ export function FreeFloatingBanner({ onAddStep }: { onAddStep: () => void }) {
 
 export function NavigationDisabledBanner() {
   return (
-    <div className="bg-white flex items-center gap-[8px] px-[16px] py-[12px] rounded-t-[12px] w-full border border-b-0 border-[#e4e4ed]">
+    <div className="bg-white flex items-center gap-[8px] px-[16px] py-[12px] rounded-[12px] w-full border border-[#e4e4ed]">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B697B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
         <circle cx="12" cy="12" r="10" />
         <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />

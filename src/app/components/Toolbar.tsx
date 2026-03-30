@@ -294,7 +294,6 @@ interface ToolbarStateProps {
   steps?: Step[];
   onDeleteStep?: (id: string) => void;
   onGripPointerDown?: (e: React.PointerEvent) => void;
-  hasTopBanner?: boolean;
 }
 
 // ─── Main Toolbar ──────────────────────────────────────────────────────────────
@@ -306,7 +305,6 @@ function StepCapture({
   blurMode, setBlurMode,
   onRestart, onHelp, onDone,
   onGripPointerDown,
-  hasTopBanner,
 }: ToolbarStateProps) {
   const [isClickMenuOpen, setIsClickMenuOpen] = useState(false);
   const [dropdownDirection, setDropdownDirection] = useState<'up' | 'down'>('up');
@@ -339,7 +337,7 @@ function StepCapture({
   };
 
   return (
-    <div className={`bg-[#1f1f32] flex h-[56px] items-center relative shadow-2xl ${hasTopBanner ? 'rounded-b-[12px]' : 'rounded-[12px]'}`}>
+    <div className="bg-[#1f1f32] flex h-[56px] items-center relative rounded-[12px] shadow-2xl">
       {/* Grip */}
       <div
         className="flex items-center justify-center px-[10px] h-full cursor-move hover:bg-[#2b2b40] transition-colors shrink-0 touch-none rounded-l-[12px]"

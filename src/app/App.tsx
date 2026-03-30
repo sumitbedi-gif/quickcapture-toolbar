@@ -511,7 +511,7 @@ export default function App() {
       <motion.div
         ref={toolbarContainerRef}
         data-toolbar-root
-        className="fixed bottom-10 z-50 flex flex-col items-start gap-0 select-none drop-shadow-2xl"
+        className="fixed bottom-10 z-50 flex flex-col items-start gap-[6px] select-none drop-shadow-2xl"
         style={{ left: 'calc(50% - 124px)', x: toolbarX, y: toolbarY }}
       >
         <AnimatePresence mode="wait">
@@ -566,7 +566,6 @@ export default function App() {
             onHelp={handleHelp}
             onDone={handleDone}
             onGripPointerDown={handleGripPointerDown}
-            hasTopBanner={isFreeFloatingActive || isClickStayActive}
           />
         </div>
       </motion.div>
