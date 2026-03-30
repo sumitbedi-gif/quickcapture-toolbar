@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useMotionValueEvent } from 'motion/react';
 import { Toolbar } from './components/Toolbar';
 import { FreeFloatingBanner, NavigationDisabledBanner } from './components/FreeFloatingBanner';
 import { Toaster } from './components/ui/sonner';
@@ -36,6 +36,15 @@ export default function App() {
   const toolbarX = useMotionValue(0);
   const toolbarY = useMotionValue(0);
   const toolbarContainerRef = useRef<HTMLDivElement>(null);
+  const [bannerBelow, setBannerBelow] = useState(false);
+
+  useMotionValueEvent(toolbarY, 'change', () => {
+    const el = toolbarContainerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < 60) setBannerBelow(true);
+    else if (rect.top >= 80) setBannerBelow(false);
+  });
 
   const handleGripPointerDown = (e: React.PointerEvent) => {
     const startX = e.clientX - toolbarX.get();
@@ -523,6 +532,7 @@ export default function App() {
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.2 }}
               className="w-full relative z-0"
+              style={{ order: bannerBelow ? 1 : -1 }}
               onMouseEnter={() => setIsHoveringFloatingButton(true)}
               onMouseLeave={() => setIsHoveringFloatingButton(false)}
             >
@@ -537,13 +547,14 @@ export default function App() {
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.2 }}
               className="w-full relative z-0"
+              style={{ order: bannerBelow ? 1 : -1 }}
             >
               <NavigationDisabledBanner />
             </motion.div>
           )}
         </AnimatePresence>
 
-        <div className="relative z-10">
+        <div className="relative z-10" style={{ order: 0 }}>
           <Toolbar
             stepCount={steps.length}
             setStepCount={(count) => {
