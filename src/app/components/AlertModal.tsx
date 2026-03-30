@@ -1,196 +1,96 @@
 import React from 'react';
-import svgPaths from "../../imports/svg-9xw3qbpn2j";
 
-function Text() {
+function AlertCircleIcon() {
   return (
-    <div className="content-stretch flex items-start relative shrink-0 w-full" data-name="Text">
-      <p className="basis-0 font-['Inter:Semi_Bold',sans-serif] font-semibold grow leading-[24px] min-h-px min-w-px not-italic relative shrink-0 text-[#1f1f32] text-[16px]">Start over?</p>
-    </div>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke="#b3141d" strokeWidth="2" />
+      <path d="M12 8v4" stroke="#b3141d" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="16" r="1" fill="#b3141d" />
+    </svg>
   );
 }
 
-function TitleAndDescription() {
+function RotateIcon() {
   return (
-    <div className="basis-0 grow min-h-px min-w-px relative shrink-0" data-name="Title and description">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center px-[8px] py-0 relative w-full">
-          <Text />
-        </div>
-      </div>
-    </div>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d3c52" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+    </svg>
   );
 }
 
-function AlertTriangle() {
+function ExitIcon() {
   return (
-    <div className="relative shrink-0 size-[20px]" data-name="alert-triangle">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g id="alert-triangle">
-          <path d={svgPaths.p3c870c80} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function IconContainer() {
-  return (
-    <div className="bg-[#e0a400] content-stretch flex items-start p-[4px] relative rounded-[24px] shrink-0" data-name="Icon Container">
-      <AlertTriangle />
-    </div>
-  );
-}
-
-function AlertPictogram() {
-  return (
-    <div className="absolute bg-[#fefbeb] content-stretch flex items-center justify-center left-0 p-[8px] rounded-[24px] top-0" data-name="Alert Pictogram">
-      <IconContainer />
-    </div>
-  );
-}
-
-function TitleContent() {
-  return (
-    <div className="basis-0 grow min-h-px min-w-px relative shrink-0" data-name="Title content">
-      <div className="flex flex-row items-center size-full">
-        <div className="content-stretch flex items-center pl-[44px] pr-0 py-[10px] relative w-full">
-          <TitleAndDescription />
-          <AlertPictogram />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function X() {
-  return (
-    <div className="relative shrink-0 size-[20px]" data-name="x">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g id="x">
-          <path d="M15 5L5 15M5 5L15 15" id="Vector" stroke="var(--stroke-0, #6B697B)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Button({ onClick }: { onClick?: () => void }) {
-  return (
-    <div 
-      className="content-stretch flex items-center justify-center overflow-clip p-[12px] relative rounded-[24px] shrink-0 cursor-pointer hover:bg-gray-100 transition-colors" 
-      data-name="Button"
-      onClick={onClick}
-    >
-      <X />
-    </div>
-  );
-}
-
-function QuickActions({ onClose }: { onClose?: () => void }) {
-  return (
-    <div className="content-stretch flex items-start relative shrink-0" data-name="Quick Actions">
-      <Button onClick={onClose} />
-    </div>
-  );
-}
-
-function ModalHeader({ onClose }: { onClose?: () => void }) {
-  return (
-    <div className="bg-white content-stretch flex gap-[12px] items-center pb-0 pt-[8px] px-[12px] relative shrink-0 w-[420px] z-[3]" data-name="Modal Header">
-      <TitleContent />
-      <QuickActions onClose={onClose} />
-    </div>
-  );
-}
-
-function Text1() {
-  return (
-    <div className="content-stretch flex items-start relative shrink-0 w-full" data-name="Text">
-      <p className="basis-0 font-['Inter:Regular',sans-serif] grow leading-[22px] min-h-px min-w-px not-italic relative shrink-0 text-[#3d3c52] text-[14px]">This will clear the steps captured in this session so you can re-capture the steps.</p>
-    </div>
-  );
-}
-
-function Body() {
-  return (
-    <div className="bg-white content-stretch flex flex-col items-start pb-[8px] pl-[64px] pr-[24px] pt-0 relative shrink-0 w-[420px] z-[2]" data-name="Body">
-      <Text1 />
-    </div>
-  );
-}
-
-function SecondaryCta({ onClick }: { onClick?: () => void }) {
-  return (
-    <div 
-      className="relative rounded-[4px] shrink-0 cursor-pointer hover:bg-gray-50 transition-colors" 
-      data-name="SecondaryCTA"
-      onClick={onClick}
-    >
-      <div className="content-stretch flex gap-[8px] items-center justify-center overflow-clip px-[16px] py-[12px] relative rounded-[inherit]">
-        <p className="font-['Inter:Medium',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#3d3c52] text-[14px] text-center text-nowrap">Cancel</p>
-      </div>
-      <div aria-hidden="true" className="absolute border border-[#dfdde7] border-solid inset-0 pointer-events-none rounded-[4px]" />
-    </div>
-  );
-}
-
-function Rotate() {
-  return (
-    <div className="relative shrink-0 size-[20px]" data-name="rotate">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g id="rotate">
-          <path d={svgPaths.p2e6e2d00} id="Vector" stroke="var(--stroke-0, #3D3C52)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function MainCta({ onClick }: { onClick?: () => void }) {
-  return (
-    <div 
-      className="bg-[#f4b31a] content-stretch flex gap-[8px] items-center justify-center overflow-clip px-[16px] py-[12px] relative rounded-[4px] shrink-0 cursor-pointer hover:bg-[#e0a400] transition-colors" 
-      data-name="Main CTA"
-      onClick={onClick}
-    >
-      <Rotate />
-      <p className="font-['Inter:Medium',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#1f1f32] text-[14px] text-center text-nowrap">Start over</p>
-    </div>
-  );
-}
-
-function MainCtAs({ onConfirm, onCancel }: { onConfirm?: () => void, onCancel?: () => void }) {
-  return (
-    <div className="basis-0 content-stretch flex gap-[8px] grow items-center justify-end min-h-px min-w-px relative shrink-0" data-name="Main CTAs">
-      <SecondaryCta onClick={onCancel} />
-      <MainCta onClick={onConfirm} />
-    </div>
-  );
-}
-
-function ModalFooter({ onConfirm, onCancel }: { onConfirm?: () => void, onCancel?: () => void }) {
-  return (
-    <div className="bg-white relative shrink-0 w-full z-[1]" data-name="Modal Footer">
-      <div className="flex flex-row items-center justify-end size-full">
-        <div className="content-stretch flex gap-[16px] items-center justify-end pl-[16px] pr-[32px] py-[24px] relative w-full">
-          <MainCtAs onConfirm={onConfirm} onCancel={onCancel} />
-        </div>
-      </div>
-    </div>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" y1="12" x2="9" y2="12" />
+    </svg>
   );
 }
 
 interface AlertModalProps {
   onConfirm: () => void;
   onCancel: () => void;
+  onExit?: () => void;
 }
 
-export function AlertModal({ onConfirm, onCancel }: AlertModalProps) {
+export function AlertModal({ onConfirm, onCancel, onExit }: AlertModalProps) {
   return (
-    <div className="content-stretch flex flex-col isolate items-center overflow-clip relative rounded-[8px] shadow-[0px_4px_30px_10px_rgba(0,0,0,0.08),0px_8px_28px_4px_rgba(0,0,0,0.1),0px_6px_22px_4px_rgba(0,0,0,0.12)] w-fit" data-name="Alert Modal">
-      <ModalHeader onClose={onCancel} />
-      <Body />
-      <ModalFooter onConfirm={onConfirm} onCancel={onCancel} />
+    <div className="bg-white rounded-[12px] shadow-[0px_8px_40px_rgba(0,0,0,0.14)] w-[540px] overflow-hidden">
+      {/* Header */}
+      <div className="flex items-start gap-[14px] px-[24px] pt-[24px] pb-[12px]">
+        {/* Icon */}
+        <div className="bg-[#fef2f2] rounded-full p-[10px] shrink-0 mt-[1px]">
+          <AlertCircleIcon />
+        </div>
+
+        {/* Title + body */}
+        <div className="flex-1 min-w-0">
+          <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[18px] text-[#1f1f32] leading-[26px]">
+            Discard?
+          </p>
+          <p className="font-['Inter:Regular',sans-serif] text-[14px] text-[#525066] leading-[22px] mt-[6px]">
+            This will delete all the captured steps.
+          </p>
+        </div>
+
+        {/* Close X */}
+        <button
+          className="text-[#6B697B] hover:text-[#3d3c52] transition-colors p-[4px] shrink-0 cursor-pointer"
+          onClick={onCancel}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-end gap-[10px] px-[24px] py-[20px]">
+        {/* Start over (outlined) */}
+        <div
+          className="relative rounded-[8px] cursor-pointer hover:bg-gray-50 transition-colors"
+          onClick={onConfirm}
+        >
+          <div className="flex items-center gap-[8px] px-[18px] py-[10px]">
+            <RotateIcon />
+            <p className="font-['Inter:Medium',sans-serif] font-medium text-[14px] text-[#3d3c52]">Start over</p>
+          </div>
+          <div aria-hidden="true" className="absolute border border-[#dfdde7] inset-0 pointer-events-none rounded-[8px]" />
+        </div>
+
+        {/* Exit (dark red) */}
+        <div
+          className="bg-[#9B1C1C] rounded-[8px] cursor-pointer hover:bg-[#7f1d1d] transition-colors"
+          onClick={onExit ?? onCancel}
+        >
+          <div className="flex items-center gap-[8px] px-[18px] py-[10px]">
+            <ExitIcon />
+            <p className="font-['Inter:Medium',sans-serif] font-medium text-[14px] text-white">Exit</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

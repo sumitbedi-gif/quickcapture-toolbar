@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { HelpPopup } from './HelpPopup';
 import svgPaths from "../../imports/svg-c0blfvocx0";
 import svgPathsMenu from "../../imports/svg-6wyeqvkrgb";
 import svgPathsModes from "../../imports/svg-ofq6aufqgu";
 import svgPathsHelp from "../../imports/svg-4vk0l22bqa";
 
+// ─── Icons ────────────────────────────────────────────────────────────────────
+
 function Grip() {
   return (
-    <div className="relative shrink-0 size-[20px]" data-name="Grip">
+    <div className="relative shrink-0 size-[20px]">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Grip">
           <g id="Vector">
@@ -26,99 +27,11 @@ function Grip() {
   );
 }
 
-function DragDrop() {
-  return (
-    <div className="content-stretch flex items-start px-[8px] py-[12px] relative shrink-0" data-name="Drag & Drop">
-      <Grip />
-    </div>
-  );
-}
-
-function DragDrop1() {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <div className="bg-[#1f1f32] content-stretch flex h-full items-center justify-center px-0 py-[10px] relative rounded-bl-[8px] rounded-tl-[8px] shrink-0 cursor-move hover:bg-[#2b2b40] transition-colors" data-name="Drag & Drop">
-          <DragDrop />
-        </div>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Drag to move</p>
-      </TooltipContent>
-    </Tooltip>
-  );
-}
-
-function TrashIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-    </svg>
-  );
-}
-
-interface Step {
-  id: string;
-  number: number;
-}
-
-function PrimaryActio({ stepCount }: { stepCount: number }) {
-  return (
-    <div className="relative">
-      <div 
-        className="bg-white relative rounded-[8px] shrink-0 w-[120px] cursor-default transition-colors overflow-hidden" 
-        data-name="Primary actio"
-      >
-        <AnimatePresence mode="popLayout">
-          <motion.div
-              key={stepCount}
-              initial={{ opacity: 0.6, scale: 0 }}
-              animate={{ opacity: 0, scale: 2 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="absolute top-1/2 left-1/2 bg-orange-400 rounded-full pointer-events-none"
-              style={{ width: 100, height: 100, x: "-50%", y: "-50%" }}
-          />
-        </AnimatePresence>
-        <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full relative z-10">
-          <div className="content-stretch flex gap-[8px] items-center justify-center px-[12px] py-[6px] relative w-full">
-            <motion.p 
-              key={stepCount}
-              initial={{ scale: 1.2, color: "#fb923c" }} 
-              animate={{ scale: 1, color: "#3d3c52" }}
-              transition={{ duration: 0.3 }}
-              className="font-['Inter:Medium',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#3d3c52] text-[14px] text-center text-nowrap"
-            >
-              {stepCount} steps
-            </motion.p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TitleContainer({ stepCount }: { stepCount: number }) {
-  return (
-    <div className="bg-[#1f1f32] h-full relative shrink-0 mr-2" data-name="Title Container">
-      <div className="flex flex-col justify-center size-full">
-        <div className="content-stretch flex flex-col items-start justify-center px-[8px] py-[10px] relative size-full">
-          <PrimaryActio stepCount={stepCount} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Icons for the main toolbar
 function Click() {
   return (
-    <div className="relative shrink-0 size-[16px]" data-name="click">
+    <div className="relative shrink-0 size-[16px]">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g>
-          <path d={svgPathsMenu.p29cfc600} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
+        <path d={svgPathsMenu.p29cfc600} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
       </svg>
     </div>
   );
@@ -126,11 +39,9 @@ function Click() {
 
 function HandClick() {
   return (
-    <div className="relative shrink-0 size-[16px]" data-name="hand-click">
+    <div className="relative shrink-0 size-[16px]">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g id="hand-click">
-          <path d={svgPathsMenu.p8776b80} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
+        <path d={svgPathsMenu.p8776b80} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
       </svg>
     </div>
   );
@@ -138,11 +49,9 @@ function HandClick() {
 
 function Capture() {
   return (
-    <div className="relative shrink-0 size-[16px]" data-name="capture">
+    <div className="relative shrink-0 size-[16px]">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g id="capture">
-          <path d={svgPathsMenu.p28bcb00} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
+        <path d={svgPathsMenu.p28bcb00} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
       </svg>
     </div>
   );
@@ -150,15 +59,78 @@ function Capture() {
 
 function CensorIcon() {
   return (
-    <div className="relative shrink-0 size-[16px]" data-name="blur">
+    <div className="relative shrink-0 size-[16px]">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g>
-          <path d={svgPathsModes.p24c4700} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
+        <path d={svgPathsModes.p24c4700} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
       </svg>
     </div>
   );
 }
+
+function PlayerPause() {
+  return (
+    <div className="relative shrink-0 size-[16px]">
+      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <path d={svgPaths.p18e3a100} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+        <path d={svgPaths.p121763f0} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+      </svg>
+    </div>
+  );
+}
+
+function Check() {
+  return (
+    <div className="relative shrink-0 size-[16px]">
+      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <path d={svgPaths.p3febb700} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+      </svg>
+    </div>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    </svg>
+  );
+}
+
+function Help() {
+  return (
+    <div className="relative shrink-0 size-[16px]">
+      <svg className="block size-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <circle cx="12" cy="12" r="10" stroke="#9CA3AF" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#9CA3AF" strokeLinecap="round" />
+        <path d="M12 17h.01" stroke="#9CA3AF" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
+
+function ChevronDown() {
+  return (
+    <div className="relative shrink-0 size-[10px]">
+      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 10">
+        <path d="M2.5 3.75L5 6.25L7.5 3.75" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
+  );
+}
+
+function Confetti() {
+  return (
+    <div className="relative shrink-0 size-[16px]">
+      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <path d={svgPathsHelp.p6820480} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+      </svg>
+    </div>
+  );
+}
+
+// ─── Shared UI components ──────────────────────────────────────────────────────
 
 interface ButtonProps {
   isActive: boolean;
@@ -171,55 +143,30 @@ interface ButtonProps {
 
 function BaseButton({ isActive, onClick, children, roundedClass, tooltip, variant = 'default' }: ButtonProps) {
   const inactiveClass = variant === 'ghost' ? 'bg-transparent hover:bg-[#4d4c62]' : 'bg-[#3d3c52] hover:bg-[#4d4c62]';
-  
   const button = (
-    <div 
-      className={`${isActive ? 'bg-[#0975d7] hover:bg-[#0864b8]' : inactiveClass} content-stretch flex items-center justify-center overflow-clip p-[8px] relative ${roundedClass} shrink-0 cursor-pointer transition-colors`} 
-      data-name="Button"
+    <div
+      className={`${isActive ? 'bg-[#0975d7] hover:bg-[#0864b8]' : inactiveClass} content-stretch flex items-center justify-center overflow-clip p-[8px] relative ${roundedClass} shrink-0 cursor-pointer transition-colors`}
       onClick={onClick}
     >
       {children}
     </div>
   );
-
   if (tooltip) {
     return (
       <Tooltip>
-        <TooltipTrigger asChild>
-          {button}
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{tooltip}</p>
-        </TooltipContent>
+        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        <TooltipContent><p>{tooltip}</p></TooltipContent>
       </Tooltip>
     );
   }
-
   return button;
 }
 
-function ChevronDown() {
+function ButtonDropdown({ onClick }: { onClick: (e: React.MouseEvent) => void }) {
   return (
-    <div className="relative shrink-0 size-[10px]" data-name="chevron-down">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 10">
-        <g id="chevron-down">
-          <path d="M2.5 3.75L5 6.25L7.5 3.75" id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-interface ButtonDropdownProps {
-    onClick: (e: React.MouseEvent) => void;
-}
-
-function ButtonDropdown({ onClick }: ButtonDropdownProps) {
-  return (
-    <div 
-        className="bg-[#3d3c52] relative rounded-br-[4px] rounded-tr-[4px] self-stretch shrink-0 w-[15px] cursor-pointer hover:bg-[#4d4c62] transition-colors" 
-        data-name="Button"
-        onClick={onClick}
+    <div
+      className="bg-[#3d3c52] relative rounded-br-[4px] rounded-tr-[4px] self-stretch shrink-0 w-[15px] cursor-pointer hover:bg-[#4d4c62] transition-colors"
+      onClick={onClick}
     >
       <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
@@ -234,411 +181,93 @@ function ButtonDropdown({ onClick }: ButtonDropdownProps) {
 interface SplitButtonProps {
   isActive: boolean;
   onSelect: () => void;
-  onDropdownClick?: (e: React.MouseEvent) => void;
+  onDropdownClick: (e: React.MouseEvent) => void;
   icon: React.ReactNode;
   tooltip?: string;
 }
 
 function SplitButton({ isActive, onSelect, onDropdownClick, icon, tooltip }: SplitButtonProps) {
   return (
-    <div className="content-stretch flex items-start overflow-clip relative rounded-[8px] shrink-0" data-name="Split Button">
+    <div className="content-stretch flex items-start overflow-clip relative rounded-[8px] shrink-0">
       <BaseButton isActive={isActive} onClick={onSelect} roundedClass="rounded-bl-[4px] rounded-tl-[4px]" tooltip={tooltip}>
         {icon}
       </BaseButton>
-      {onDropdownClick ? (
-          <ButtonDropdown onClick={onDropdownClick} />
-      ) : (
-          <ButtonDropdown onClick={() => {}} />
-      )}
-    </div>
-  );
-}
-
-function Blur() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="blur">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g>
-          <path d={svgPaths.p16d89000} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Rotate() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="rotate">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g id="rotate">
-          <path d={svgPaths.p24dbb500} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function PlayerPause() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="player-pause">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g id="player-pause">
-          <g id="Vector">
-            <path d={svgPaths.p18e3a100} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-            <path d={svgPaths.p121763f0} stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-// Menu Components
-interface MenuItemProps {
-    icon: React.ReactNode;
-    label: string;
-    onClick: () => void;
-    isActive?: boolean;
-    onMouseEnter?: () => void;
-}
-
-function MenuItem({ icon, label, onClick, isActive, onMouseEnter }: MenuItemProps) {
-  return (
-    <div 
-        className={`${isActive ? 'bg-[#0975d7]' : 'bg-[#1f1f32]'} relative shrink-0 w-full cursor-pointer transition-colors rounded-[4px]`} 
-        data-name="Single-select Menu Item"
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-    >
-      <div className="size-full">
-        <div className="content-stretch flex flex-col items-start px-[8px] py-[4px] relative w-full">
-            <div className="relative shrink-0 w-full" data-name="Item content">
-                <div className="flex flex-row items-center size-full">
-                    <div className="content-stretch flex gap-[8px] items-center px-[4px] py-[2px] relative w-full">
-                        {icon}
-                        <p className="basis-0 font-['Inter:Regular',sans-serif] grow leading-[20px] min-h-px min-w-px not-italic relative shrink-0 text-[14px] text-white">{label}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-
-    </div>
-  );
-}
-
-interface ClickOptionsProps {
-    onSelect: (option: 'click' | 'hand' | 'capture') => void;
-    currentMode: 'click' | 'hand' | 'capture';
-}
-
-function ClickOptions({ onSelect, currentMode }: ClickOptionsProps) {
-  const [highlighted, setHighlighted] = useState(currentMode);
-
-  useEffect(() => {
-    setHighlighted(currentMode);
-  }, [currentMode]);
-
-  return (
-    <div 
-      className="bg-[#1f1f32] content-stretch flex flex-col items-start px-0 py-[4px] relative rounded-[6px] w-[240px] shadow-lg border border-[#2b2b40]" 
-      data-name="Click options"
-      onMouseLeave={() => setHighlighted(currentMode)}
-    >
-      <MenuItem 
-        icon={<Click />} 
-        label="Capture and navigate" 
-        onClick={() => onSelect('click')} 
-        isActive={highlighted === 'click'}
-        onMouseEnter={() => setHighlighted('click')}
-      />
-      <MenuItem 
-        icon={<HandClick />} 
-        label="Capture without navigation" 
-        onClick={() => onSelect('hand')} 
-        isActive={highlighted === 'hand'} 
-        onMouseEnter={() => setHighlighted('hand')}
-      />
-      <MenuItem 
-        icon={<Capture />} 
-        label="Free floating step" 
-        onClick={() => onSelect('capture')} 
-        isActive={highlighted === 'capture'} 
-        onMouseEnter={() => setHighlighted('capture')}
-      />
-    </div>
-  );
-}
-
-interface ActionContainerProps {
-  activeTool: string;
-  setActiveTool: (tool: string) => void;
-  clickMode: 'click' | 'hand' | 'capture';
-  setClickMode: (mode: 'click' | 'hand' | 'capture') => void;
-  blurMode: 'censor' | 'multiselect';
-  setBlurMode: (mode: 'censor' | 'multiselect') => void;
-  setStepCount: (count: number) => void;
-  stepCount?: number;
-  onRestart?: () => void;
-  onCancel?: () => void;
-  onHelp?: () => void;
-  steps?: Step[];
-  onDeleteStep?: (id: string) => void;
-}
-
-function ActionContainer({ activeTool, setActiveTool, clickMode, setClickMode, blurMode, setBlurMode, setStepCount, onRestart }: ActionContainerProps) {
-  const [isClickMenuOpen, setIsClickMenuOpen] = useState(false);
-  const clickMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (clickMenuRef.current && !clickMenuRef.current.contains(event.target as Node)) {
-        setIsClickMenuOpen(false);
-      }
-    }
-
-    if (isClickMenuOpen) {
-        document.addEventListener('mousedown', handleClickOutside);
-    }
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isClickMenuOpen]);
-
-  const getClickIcon = () => {
-      switch (clickMode) {
-          case 'click': return <Click />;
-          case 'hand': return <HandClick />;
-          case 'capture': return <Capture />;
-          default: return <Click />;
-      }
-  };
-
-  const getClickTooltip = () => {
-      switch (clickMode) {
-          case 'click': return "Capture and navigate";
-          case 'hand': return "Capture without navigation";
-          case 'capture': return "Free floating step";
-          default: return "Capture and navigate";
-      }
-  };
-
-  const handleClickSelect = () => {
-      setActiveTool('click');
-  };
-
-  const handleClickDropdownClick = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      setIsClickMenuOpen(!isClickMenuOpen);
-  };
-
-  const handleClickOptionSelect = (mode: 'click' | 'hand' | 'capture') => {
-      setClickMode(mode);
-      setActiveTool('click');
-      setIsClickMenuOpen(false);
-  };
-
-  return (
-    <div className="bg-[#1f1f32] content-stretch flex gap-[6px] h-full items-center justify-center px-[4px] py-[10px] relative shrink-0" data-name="Action Container -2">
-      <div className="relative" ref={clickMenuRef}>
-          <AnimatePresence>
-            {isClickMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                transition={{ duration: 0.15 }}
-                className="absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left"
-              >
-                 <ClickOptions onSelect={handleClickOptionSelect} currentMode={clickMode} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <SplitButton 
-            isActive={activeTool === 'click'} 
-            onSelect={handleClickSelect} 
-            onDropdownClick={handleClickDropdownClick}
-            icon={getClickIcon()} 
-            tooltip={getClickTooltip()}
-          />
-      </div>
-      <BaseButton 
-        isActive={activeTool === 'blur'} 
-        onClick={() => {
-            setActiveTool('blur');
-            setBlurMode('censor');
-        }} 
-        roundedClass="rounded-[8px]"
-        tooltip="Censor mode"
-        variant="ghost"
-      >
-        <CensorIcon />
-      </BaseButton>
-      <BaseButton 
-        isActive={false} 
-        onClick={() => {
-          if (onRestart) {
-            onRestart();
-          } else {
-            setStepCount(0);
-            setActiveTool('click');
-            setClickMode('click');
-          }
-        }} 
-        roundedClass="rounded-[8px]"
-        tooltip="Start over"
-        variant="ghost"
-      >
-        <Rotate />
-      </BaseButton>
-      <BaseButton 
-        isActive={activeTool === 'pause'} 
-        onClick={() => setActiveTool('pause')} 
-        roundedClass="rounded-[8px]"
-        tooltip="Pause"
-        variant="ghost"
-      >
-        <PlayerPause />
-      </BaseButton>
+      <ButtonDropdown onClick={onDropdownClick} />
     </div>
   );
 }
 
 function Divider() {
   return (
-    <div className="content-stretch flex flex-col h-[32px] items-center justify-center relative w-px" data-name="Divider">
-      <div className="basis-0 bg-white grow min-h-px min-w-px opacity-[0.16] shrink-0 w-full" data-name="Divider" />
+    <div className="content-stretch flex flex-col h-[32px] items-center justify-center relative w-px mx-[2px]">
+      <div className="basis-0 bg-white grow min-h-px min-w-px opacity-[0.16] shrink-0 w-full" />
     </div>
   );
 }
 
-function Check() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="check">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g id="check">
-          <path d={svgPaths.p3febb700} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
-      </svg>
-    </div>
-  );
-}
+// ─── Click mode dropdown menu ──────────────────────────────────────────────────
 
-interface PrimaryActio1Props {
-  onClick: () => void;
-}
-
-function PrimaryActio1({ onClick }: PrimaryActio1Props) {
+function MenuItem({ icon, label, onClick, isActive, onMouseEnter }: {
+  icon: React.ReactNode; label: string; onClick: () => void; isActive?: boolean; onMouseEnter?: () => void;
+}) {
   return (
-    <div 
-      className="bg-[#198558] content-stretch flex gap-[8px] items-center justify-center overflow-clip px-[12px] py-[6px] relative rounded-[8px] shrink-0 cursor-pointer hover:bg-[#146c48] transition-colors" 
-      data-name="Primary actio"
+    <div
+      className={`${isActive ? 'bg-[#0975d7]' : 'bg-[#1f1f32]'} relative shrink-0 w-full cursor-pointer transition-colors rounded-[4px]`}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
     >
-      <Check />
-      <p className="font-['Inter:Medium',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[14px] text-center text-nowrap text-white">Done</p>
-    </div>
-  );
-}
-
-function X() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="x">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g id="x">
-          <path d="M12 4L4 12M4 4L12 12" id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function CancelButton({ onClick }: { onClick?: () => void }) {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <div 
-          className="bg-[#b3141d] content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[8px] shrink-0 cursor-pointer hover:bg-[#921017] transition-colors" 
-          data-name="Button"
-          onClick={onClick}
-        >
-          <X />
+      <div className="content-stretch flex flex-col items-start px-[8px] py-[4px] relative w-full">
+        <div className="relative shrink-0 w-full">
+          <div className="flex flex-row items-center size-full">
+            <div className="content-stretch flex gap-[8px] items-center px-[4px] py-[2px] relative w-full">
+              {icon}
+              <p className="basis-0 font-['Inter:Regular',sans-serif] grow leading-[20px] not-italic relative shrink-0 text-[14px] text-white">{label}</p>
+            </div>
+          </div>
         </div>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Discard and exit</p>
-      </TooltipContent>
-    </Tooltip>
-  );
-}
-
-function Help() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="help">
-      <svg className="block size-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="10" stroke="#9CA3AF" />
-        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#9CA3AF" strokeLinecap="round" />
-        <path d="M12 17h.01" stroke="#9CA3AF" strokeLinecap="round" />
-      </svg>
+      </div>
     </div>
   );
 }
 
-function HelpButton({ onClick, isActive }: { onClick: () => void, isActive: boolean }) {
+function ClickOptions({ onSelect, currentMode }: { onSelect: (option: 'click' | 'hand' | 'capture') => void; currentMode: 'click' | 'hand' | 'capture'; }) {
+  const [highlighted, setHighlighted] = useState(currentMode);
+  useEffect(() => { setHighlighted(currentMode); }, [currentMode]);
+  return (
+    <div
+      className="bg-[#1f1f32] content-stretch flex flex-col items-start px-0 py-[4px] relative rounded-[6px] w-[240px] shadow-lg border border-[#2b2b40]"
+      onMouseLeave={() => setHighlighted(currentMode)}
+    >
+      <MenuItem icon={<Click />} label="Capture and navigate" onClick={() => onSelect('click')} isActive={highlighted === 'click'} onMouseEnter={() => setHighlighted('click')} />
+      <MenuItem icon={<HandClick />} label="Capture without navigation" onClick={() => onSelect('hand')} isActive={highlighted === 'hand'} onMouseEnter={() => setHighlighted('hand')} />
+      <MenuItem icon={<Capture />} label="Free floating step" onClick={() => onSelect('capture')} isActive={highlighted === 'capture'} onMouseEnter={() => setHighlighted('capture')} />
+    </div>
+  );
+}
+
+// ─── Help button ───────────────────────────────────────────────────────────────
+
+function HelpButton({ onClick }: { onClick: () => void }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div 
-          className={`bg-[#1f1f32] content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[8px] shrink-0 cursor-pointer hover:bg-[#2b2b40] transition-colors ${isActive ? 'bg-[#2b2b40]' : ''}`} 
-          data-name="Button"
+        <div
+          className="bg-[#1f1f32] content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[8px] shrink-0 cursor-pointer hover:bg-[#2b2b40] transition-colors"
           onClick={onClick}
         >
           <Help />
         </div>
       </TooltipTrigger>
-      <TooltipContent>
-        <p>Learn more</p>
-      </TooltipContent>
+      <TooltipContent><p>Learn more</p></TooltipContent>
     </Tooltip>
   );
 }
 
-function ActionContainer1({ stepCount = 0, onCancel, onDone }: { stepCount?: number, onCancel?: () => void, onDone?: () => void }) {
-  const handleDone = () => {
-    if (onDone) {
-      onDone();
-    }
-  };
+// ─── Interface ─────────────────────────────────────────────────────────────────
 
-  return (
-    <div className="bg-[#1f1f32] content-stretch flex gap-[5px] h-full items-center justify-center px-[4px] py-[10px] relative shrink-0" data-name="Action Container -2">
-      <PrimaryActio1 onClick={handleDone} />
-      <CancelButton onClick={onCancel} />
-    </div>
-  );
-}
-
-function ActionGroupContainer({ activeTool, setActiveTool, clickMode, setClickMode, blurMode, setBlurMode, setStepCount, stepCount, onRestart, onCancel, onHelp, onDone }: ActionContainerProps & { onCancel?: () => void, onHelp?: () => void, onDone?: () => void }) {
-  return (
-    <div className="content-stretch flex gap-[4px] h-full items-center justify-center pl-0 pr-[6px] py-0 relative shrink-0" data-name="Action group container">
-      <ActionContainer activeTool={activeTool} setActiveTool={setActiveTool} clickMode={clickMode} setClickMode={setClickMode} blurMode={blurMode} setBlurMode={setBlurMode} setStepCount={setStepCount} onRestart={onRestart} />
-      <div className="flex items-center justify-center relative shrink-0">
-        <div className="flex-none rotate-[180deg]">
-          <Divider />
-        </div>
-      </div>
-      <ActionContainer1 stepCount={stepCount} onCancel={onCancel} onDone={onDone} />
-      <div className="flex items-center justify-center relative shrink-0">
-        <div className="flex-none rotate-[180deg]">
-          <Divider />
-        </div>
-      </div>
-      <div className="relative">
-        <HelpButton onClick={() => onHelp?.()} isActive={false} />
-      </div>
-    </div>
-  );
+interface Step {
+  id: string;
+  number: number;
 }
 
 interface ToolbarStateProps {
@@ -658,35 +287,170 @@ interface ToolbarStateProps {
   onDeleteStep?: (id: string) => void;
 }
 
-function StepCapture({ 
-  stepCount, 
-  setStepCount,
-  activeTool, 
-  setActiveTool, 
-  clickMode, 
-  setClickMode, 
-  blurMode, 
-  setBlurMode,
-  onRestart,
-  onCancel,
-  onHelp,
-  onDone,
-  steps,
-  onDeleteStep
+// ─── Main Toolbar ──────────────────────────────────────────────────────────────
+
+function StepCapture({
+  stepCount,
+  activeTool, setActiveTool,
+  clickMode, setClickMode,
+  blurMode, setBlurMode,
+  onRestart, onHelp, onDone,
 }: ToolbarStateProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isClickMenuOpen, setIsClickMenuOpen] = useState(false);
+  const clickMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (clickMenuRef.current && !clickMenuRef.current.contains(event.target as Node)) {
+        setIsClickMenuOpen(false);
+      }
+    }
+    if (isClickMenuOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isClickMenuOpen]);
+
+  const getClickIcon = () => {
+    switch (clickMode) {
+      case 'click': return <Click />;
+      case 'hand': return <HandClick />;
+      case 'capture': return <Capture />;
+    }
+  };
+
+  const getClickTooltip = () => {
+    switch (clickMode) {
+      case 'click': return 'Capture and navigate';
+      case 'hand': return 'Capture without navigation';
+      case 'capture': return 'Free floating step';
+    }
+  };
+
   return (
-    <div className="bg-[#1f1f32] content-stretch flex h-[56px] items-start relative shrink-0 w-fit rounded-[12px]" data-name="Step Capture">
-      <DragDrop1 />
-      <TitleContainer stepCount={stepCount} />
-      <ActionGroupContainer activeTool={activeTool} setActiveTool={setActiveTool} clickMode={clickMode} setClickMode={setClickMode} blurMode={blurMode} setBlurMode={setBlurMode} setStepCount={setStepCount} stepCount={stepCount} onRestart={onRestart} onCancel={onCancel} onHelp={onHelp} onDone={onDone} />
+    <div
+      className="bg-[#1f1f32] flex h-[56px] items-center relative rounded-[12px] overflow-hidden shadow-2xl"
+      onMouseEnter={() => setIsExpanded(true)}
+      onMouseLeave={() => setIsExpanded(false)}
+    >
+      {/* Grip */}
+      <div className="flex items-center justify-center px-[10px] h-full cursor-move hover:bg-[#2b2b40] transition-colors shrink-0">
+        <Grip />
+      </div>
+
+      {/* Steps — plain text */}
+      <div className="px-[4px] pr-[12px] shrink-0">
+        <motion.p
+          key={stepCount}
+          initial={{ scale: 1.15, color: '#fb923c' }}
+          animate={{ scale: 1, color: '#ffffff' }}
+          transition={{ duration: 0.3 }}
+          className="font-['Inter:Medium',sans-serif] font-medium text-[14px] leading-[20px] whitespace-nowrap"
+        >
+          {stepCount} steps
+        </motion.p>
+      </div>
+
+      {/* Always-visible: capture | pause | done */}
+      <div className="flex items-center gap-[6px] pr-[10px] shrink-0">
+        {/* Capture split button */}
+        <div className="relative" ref={clickMenuRef}>
+          <AnimatePresence>
+            {isClickMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                className="absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left"
+              >
+                <ClickOptions
+                  onSelect={(mode) => { setClickMode(mode); setActiveTool('click'); setIsClickMenuOpen(false); }}
+                  currentMode={clickMode}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <SplitButton
+            isActive={activeTool === 'click'}
+            onSelect={() => setActiveTool('click')}
+            onDropdownClick={(e) => { e.stopPropagation(); setIsClickMenuOpen(prev => !prev); }}
+            icon={getClickIcon()}
+            tooltip={getClickTooltip()}
+          />
+        </div>
+
+        {/* Pause */}
+        <BaseButton
+          isActive={activeTool === 'pause'}
+          onClick={() => setActiveTool('pause')}
+          roundedClass="rounded-[8px]"
+          tooltip="Pause"
+          variant="ghost"
+        >
+          <PlayerPause />
+        </BaseButton>
+
+        {/* Done */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div
+              className="flex items-center justify-center p-[8px] rounded-[8px] shrink-0 cursor-pointer hover:bg-[#2b2b40] transition-colors"
+              onClick={onDone}
+            >
+              <Check />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent><p>Done</p></TooltipContent>
+        </Tooltip>
+      </div>
+
+      {/* Hover-expanded: | censor | trash | | help */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: 'auto' }}
+            exit={{ opacity: 0, width: 0 }}
+            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: 'hidden' }}
+            className="flex items-center shrink-0"
+          >
+            <div className="flex items-center gap-[6px] pr-[10px]">
+              <Divider />
+
+              <BaseButton
+                isActive={activeTool === 'blur'}
+                onClick={() => { setActiveTool('blur'); setBlurMode('censor'); }}
+                roundedClass="rounded-[8px]"
+                tooltip="Censor mode"
+                variant="ghost"
+              >
+                <CensorIcon />
+              </BaseButton>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className="bg-[#b3141d] flex items-center justify-center p-[8px] rounded-[8px] shrink-0 cursor-pointer hover:bg-[#921017] transition-colors"
+                    onClick={onRestart}
+                  >
+                    <TrashIcon />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent><p>Start over</p></TooltipContent>
+              </Tooltip>
+
+              <Divider />
+
+              <HelpButton onClick={() => onHelp?.()} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 export function Toolbar(props: ToolbarStateProps) {
-  return (
-    <div className="bg-[#1f1f32] content-stretch flex flex-col items-start relative rounded-[12px] w-fit shadow-2xl" data-name="Toolbar">
-      <StepCapture {...props} />
-    </div>
-  );
+  return <StepCapture {...props} />;
 }

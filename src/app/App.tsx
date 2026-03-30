@@ -442,7 +442,7 @@ export default function App() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50"
           >
-            <AlertModal onConfirm={confirmRestart} onCancel={() => setShowStartOverModal(false)} />
+            <AlertModal onConfirm={confirmRestart} onCancel={() => setShowStartOverModal(false)} onExit={() => { setShowStartOverModal(false); confirmExit(); }} />
           </motion.div>
         )}
         {showExitModal && (
@@ -480,7 +480,8 @@ export default function App() {
       {/* Toolbar + Banners */}
       <div
         data-toolbar-root
-        className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-0"
+        className="fixed bottom-10 z-50 flex flex-col items-start gap-0"
+        style={{ left: 'calc(50% - 124px)' }}
       >
         <AnimatePresence mode="wait">
           {isFreeFloatingActive && (
