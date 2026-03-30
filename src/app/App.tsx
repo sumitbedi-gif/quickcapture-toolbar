@@ -511,18 +511,18 @@ export default function App() {
       <motion.div
         ref={toolbarContainerRef}
         data-toolbar-root
-        className="fixed bottom-10 z-50 flex flex-col items-start gap-0 select-none"
+        className="fixed bottom-10 z-50 flex flex-col items-start gap-0 select-none drop-shadow-2xl"
         style={{ left: 'calc(50% - 124px)', x: toolbarX, y: toolbarY }}
       >
         <AnimatePresence mode="wait">
           {isFreeFloatingActive && (
             <motion.div
               key="free-floating"
-              initial={{ y: "100%", opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: "100%", opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-              className="w-[96%] relative z-0 -mb-2"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="w-full relative z-0"
               onMouseEnter={() => setIsHoveringFloatingButton(true)}
               onMouseLeave={() => setIsHoveringFloatingButton(false)}
             >
@@ -532,11 +532,11 @@ export default function App() {
           {isClickStayActive && (
             <motion.div
               key="nav-disabled"
-              initial={{ y: "100%", opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: "100%", opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-              className="w-[96%] relative z-0 -mb-2"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="w-full relative z-0"
             >
               <NavigationDisabledBanner />
             </motion.div>
@@ -566,6 +566,7 @@ export default function App() {
             onHelp={handleHelp}
             onDone={handleDone}
             onGripPointerDown={handleGripPointerDown}
+            hasTopBanner={isFreeFloatingActive || isClickStayActive}
           />
         </div>
       </motion.div>

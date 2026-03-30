@@ -96,6 +96,16 @@ function CloseIcon() {
   );
 }
 
+function TrashIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    </svg>
+  );
+}
+
 function Help() {
   return (
     <div className="relative shrink-0 size-[16px]">
@@ -143,7 +153,7 @@ function BaseButton({ isActive, onClick, children, roundedClass, tooltip, varian
   const inactiveClass = variant === 'ghost' ? 'bg-transparent hover:bg-[#4d4c62]' : 'bg-[#3d3c52] hover:bg-[#4d4c62]';
   const button = (
     <div
-      className={`${isActive ? 'bg-[#0975d7] hover:bg-[#0864b8]' : inactiveClass} content-stretch flex items-center justify-center overflow-clip p-[8px] relative ${roundedClass} shrink-0 cursor-pointer transition-colors`}
+      className={`${isActive ? 'bg-white hover:bg-[#f0f0f5] [&_svg_path]:stroke-[#1f1f32] [&_svg_line]:stroke-[#1f1f32] [&_circle]:stroke-[#1f1f32]' : inactiveClass} content-stretch flex items-center justify-center overflow-clip p-[8px] relative ${roundedClass} shrink-0 cursor-pointer transition-colors`}
       onClick={onClick}
     >
       {children}
@@ -284,6 +294,7 @@ interface ToolbarStateProps {
   steps?: Step[];
   onDeleteStep?: (id: string) => void;
   onGripPointerDown?: (e: React.PointerEvent) => void;
+  hasTopBanner?: boolean;
 }
 
 // ─── Main Toolbar ──────────────────────────────────────────────────────────────
@@ -295,8 +306,8 @@ function StepCapture({
   blurMode, setBlurMode,
   onRestart, onHelp, onDone,
   onGripPointerDown,
+  hasTopBanner,
 }: ToolbarStateProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isClickMenuOpen, setIsClickMenuOpen] = useState(false);
   const [dropdownDirection, setDropdownDirection] = useState<'up' | 'down'>('up');
   const clickMenuRef = useRef<HTMLDivElement>(null);
@@ -328,11 +339,7 @@ function StepCapture({
   };
 
   return (
-    <div
-      className="bg-[#1f1f32] flex h-[56px] items-center relative rounded-[12px] shadow-2xl"
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-    >
+    <div className={`bg-[#1f1f32] flex h-[56px] items-center relative shadow-2xl ${hasTopBanner ? 'rounded-b-[12px]' : 'rounded-[12px]'}`}>
       {/* Grip */}
       <div
         className="flex items-center justify-center px-[10px] h-full cursor-move hover:bg-[#2b2b40] transition-colors shrink-0 touch-none rounded-l-[12px]"
@@ -341,7 +348,7 @@ function StepCapture({
         <Grip />
       </div>
 
-      {/* Steps — plain text */}
+      {/* Steps */}
       <div className="px-[4px] pr-[12px] shrink-0">
         <motion.p
           key={stepCount}
@@ -354,45 +361,46 @@ function StepCapture({
         </motion.p>
       </div>
 
-      {/* Always-visible: capture | pause | done */}
-      <div className="flex items-center gap-[6px] pr-[10px] shrink-0">
-        {/* Capture split button */}
-        <div className="relative" ref={clickMenuRef}>
-          <AnimatePresence>
-            {isClickMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
-                transition={{ duration: 0.15 }}
-                className={dropdownDirection === 'up'
-                  ? 'absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left'
-                  : 'absolute top-full left-0 mt-[14px] z-50 origin-top-left'}
-              >
-                <ClickOptions
-                  onSelect={(mode) => { setClickMode(mode); setActiveTool('click'); setIsClickMenuOpen(false); }}
-                  currentMode={clickMode}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <SplitButton
-            isActive={activeTool === 'click'}
-            onSelect={() => setActiveTool('click')}
-            onDropdownClick={(e) => {
-              e.stopPropagation();
-              if (!isClickMenuOpen) {
-                const rect = clickMenuRef.current?.getBoundingClientRect();
-                setDropdownDirection(rect && rect.top < 220 ? 'down' : 'up');
-              }
-              setIsClickMenuOpen(prev => !prev);
-            }}
-            icon={getClickIcon()}
-            tooltip={getClickTooltip()}
-          />
-        </div>
+      {/* Capture split */}
+      <div className="relative pr-[6px]" ref={clickMenuRef}>
+        <AnimatePresence>
+          {isClickMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: dropdownDirection === 'up' ? 10 : -10, scale: 0.95 }}
+              transition={{ duration: 0.15 }}
+              className={dropdownDirection === 'up'
+                ? 'absolute bottom-full left-0 mb-[14px] z-50 origin-bottom-left'
+                : 'absolute top-full left-0 mt-[14px] z-50 origin-top-left'}
+            >
+              <ClickOptions
+                onSelect={(mode) => { setClickMode(mode); setActiveTool('click'); setIsClickMenuOpen(false); }}
+                currentMode={clickMode}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <SplitButton
+          isActive={activeTool === 'click'}
+          onSelect={() => setActiveTool('click')}
+          onDropdownClick={(e) => {
+            e.stopPropagation();
+            if (!isClickMenuOpen) {
+              const rect = clickMenuRef.current?.getBoundingClientRect();
+              setDropdownDirection(rect && rect.top < 220 ? 'down' : 'up');
+            }
+            setIsClickMenuOpen(prev => !prev);
+          }}
+          icon={getClickIcon()}
+          tooltip={getClickTooltip()}
+        />
+      </div>
 
-        {/* Pause */}
+      <Divider />
+
+      {/* Pause | Censor */}
+      <div className="flex items-center gap-[6px] px-[6px]">
         <BaseButton
           isActive={activeTool === 'pause'}
           onClick={() => setActiveTool('pause')}
@@ -403,11 +411,25 @@ function StepCapture({
           <PlayerPause />
         </BaseButton>
 
-        {/* Done */}
+        <BaseButton
+          isActive={activeTool === 'blur'}
+          onClick={() => { setActiveTool('blur'); setBlurMode('censor'); }}
+          roundedClass="rounded-[8px]"
+          tooltip="Censor mode"
+          variant="ghost"
+        >
+          <CensorIcon />
+        </BaseButton>
+      </div>
+
+      <Divider />
+
+      {/* Done | Close */}
+      <div className="flex items-center gap-[6px] px-[6px]">
         <Tooltip>
           <TooltipTrigger asChild>
             <div
-              className="flex items-center justify-center p-[8px] rounded-[8px] shrink-0 cursor-pointer hover:bg-[#2b2b40] transition-colors"
+              className="bg-[#198558] flex items-center justify-center p-[8px] rounded-[8px] shrink-0 cursor-pointer hover:bg-[#146c48] transition-colors"
               onClick={onDone}
             >
               <Check />
@@ -415,51 +437,24 @@ function StepCapture({
           </TooltipTrigger>
           <TooltipContent><p>Done</p></TooltipContent>
         </Tooltip>
+
+        <BaseButton
+          isActive={false}
+          onClick={() => onRestart?.()}
+          roundedClass="rounded-[8px]"
+          tooltip="Delete"
+          variant="ghost"
+        >
+          <TrashIcon />
+        </BaseButton>
       </div>
 
-      {/* Hover-expanded: | censor | trash | | help */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, width: 0 }}
-            animate={{ opacity: 1, width: 'auto' }}
-            exit={{ opacity: 0, width: 0 }}
-            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-            style={{ overflow: 'hidden' }}
-            className="flex items-center shrink-0"
-          >
-            <div className="flex items-center gap-[6px] pr-[10px]">
-              <Divider />
+      <Divider />
 
-              <BaseButton
-                isActive={activeTool === 'blur'}
-                onClick={() => { setActiveTool('blur'); setBlurMode('censor'); }}
-                roundedClass="rounded-[8px]"
-                tooltip="Censor mode"
-                variant="ghost"
-              >
-                <CensorIcon />
-              </BaseButton>
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div
-                    className="bg-[#b3141d] flex items-center justify-center p-[8px] rounded-[8px] shrink-0 cursor-pointer hover:bg-[#921017] transition-colors"
-                    onClick={onRestart}
-                  >
-                    <CloseIcon />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent><p>Close</p></TooltipContent>
-              </Tooltip>
-
-              <Divider />
-
-              <HelpButton onClick={() => onHelp?.()} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Help */}
+      <div className="pr-[10px] pl-[6px]">
+        <HelpButton onClick={() => onHelp?.()} />
+      </div>
     </div>
   );
 }
