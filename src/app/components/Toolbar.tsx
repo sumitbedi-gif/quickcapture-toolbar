@@ -189,7 +189,7 @@ function ClickOptions({ onSelect, currentMode }: { onSelect: (option: 'click' | 
   );
 }
 
-// ─── Select mode dropdown (Multi-select + Censor) ───────────────────────────────
+// ─── Select mode dropdown (Censor + Multi-select) ───────────────────────────────
 
 function SelectOptions({ onSelect, currentMode }: { onSelect: (mode: 'multiselect' | 'censor') => void; currentMode: 'multiselect' | 'censor'; }) {
   const [highlighted, setHighlighted] = useState(currentMode);
@@ -199,8 +199,8 @@ function SelectOptions({ onSelect, currentMode }: { onSelect: (mode: 'multiselec
       className="bg-[#1f1f32] flex flex-col items-stretch gap-[2px] p-[4px] relative rounded-[10px] min-w-[248px] w-max shadow-lg border border-[#2b2b40]"
       onMouseLeave={() => setHighlighted(currentMode)}
     >
-      <MenuItem icon={<MultiSelectIcon />} label="Multi Select" onClick={() => onSelect('multiselect')} isActive={highlighted === 'multiselect'} isSelected={currentMode === 'multiselect'} onMouseEnter={() => setHighlighted('multiselect')} />
       <MenuItem icon={<CensorIcon />} label="Censor sensitive data" onClick={() => onSelect('censor')} isActive={highlighted === 'censor'} isSelected={currentMode === 'censor'} onMouseEnter={() => setHighlighted('censor')} />
+      <MenuItem icon={<MultiSelectIcon />} label="Multi Select" onClick={() => onSelect('multiselect')} isActive={highlighted === 'multiselect'} isSelected={currentMode === 'multiselect'} onMouseEnter={() => setHighlighted('multiselect')} />
     </div>
   );
 }

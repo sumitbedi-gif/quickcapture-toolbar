@@ -310,7 +310,7 @@ function PrincipleRow({ p }: { p: Principle }) {
 function PlaygroundStage() {
   const [activeTool, setActiveTool] = useState('click');
   const [clickMode, setClickMode] = useState<'click' | 'hand' | 'capture'>('click');
-  const [blurMode, setBlurMode] = useState<'censor' | 'multiselect'>('multiselect');
+  const [blurMode, setBlurMode] = useState<'censor' | 'multiselect'>('censor');
   const [stepCount, setStepCount] = useState(3);
   const [multiCount, setMultiCount] = useState(0);
 
@@ -335,7 +335,7 @@ function PlaygroundStage() {
   React.useEffect(() => { if (!isMulti) setMultiCount(0); }, [isMulti]);
 
   const reset = () => {
-    setActiveTool('click'); setClickMode('click'); setBlurMode('multiselect'); setStepCount(0);
+    setActiveTool('click'); setClickMode('click'); setBlurMode('censor'); setStepCount(0);
     setMultiCount(0); toolbarX.set(0); toolbarY.set(0);
   };
   const addStep = () => setStepCount((c) => c + 1);
