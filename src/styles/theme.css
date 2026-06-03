@@ -128,6 +128,23 @@
     @apply bg-background text-foreground;
   }
 
+  /* Respect users who prefer reduced motion: cut animation/transition durations
+     and neutralize transform-based press feedback. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .active\:scale-\[0\.94\]:active,
+    .active\:scale-\[0\.96\]:active {
+      transform: none !important;
+    }
+  }
+
   /**
   * Default typography styles for HTML elements (h1-h4, p, label, button, input).
   * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useMotionValueEvent } from 'motion/react';
 import { Toolbar } from './components/Toolbar';
-import { FreeFloatingBanner, NavigationDisabledBanner } from './components/FreeFloatingBanner';
+import { FreeFloatingBanner, NavigationDisabledBanner, CensorBanner, MultiSelectBanner } from './components/FreeFloatingBanner';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import { DummyApp } from './components/DummyApp';
@@ -83,6 +83,19 @@ export default function App() {
   const isClickStayActive = (activeTool === 'click' || activeTool === 'pause') && clickMode === 'hand';
   const isFreeFloatingActive = activeTool === 'click' && clickMode === 'capture';
   const isCensorActive = activeTool === 'blur' && blurMode === 'censor';
+  const isMultiSelectActive = activeTool === 'blur' && blurMode === 'multiselect';
+
+  // Multi-select: clicking an element adds it (and similar ones) to the pending step.
+  const [multiSelectedIds, setMultiSelectedIds] = useState<string[]>([]);
+  const confirmMultiSelect = () => {
+    if (multiSelectedIds.length === 0) return;
+    addStep();
+    triggerCaptureTooltip(mousePos.x, mousePos.y, steps.length + 1);
+    setMultiSelectedIds([]);
+    // After confirming, drop back to the default capture-and-navigate mode.
+    setActiveTool('click');
+    setClickMode('click');
+  };
 
   const [captureTooltip, setCaptureTooltip] = useState<{x: number, y: number, id: number, count: number} | null>(null);
 
@@ -129,7 +142,7 @@ export default function App() {
       overlay.style.opacity = '1';
 
       if (isCensorActive) {
-        overlay.style.border     = '1.5px solid rgba(139, 92, 246, 0.75)';
+        overlay.style.border     = '1.5px solid rgba(9, 117, 215, 0.75)';
         overlay.style.background = 'transparent';
       } else {
         overlay.style.border     = '1.5px solid rgba(220, 38, 38, 0.65)';
@@ -165,6 +178,13 @@ export default function App() {
 
   // ─── Click handler for Mode 1 + Mode 2 ────────────────────────────────────
   const handleElementClick = (elementId: string, elementLabel: string) => {
+    // Multi-select: toggle the element into the pending selection (Confirm commits).
+    if (isMultiSelectActive) {
+      setMultiSelectedIds(prev =>
+        prev.includes(elementId) ? prev.filter(id => id !== elementId) : [...prev, elementId]
+      );
+      return;
+    }
     if (activeTool === 'click' || activeTool === 'pause') {
       if (activeTool !== 'pause') {
         addStep();
@@ -271,6 +291,7 @@ export default function App() {
     setClickedElements([]);
     setPostFinishMode(null);
     setCensoredIds([]);
+    setMultiSelectedIds([]);
     censoredRefs.current.clear();
     setShowStartOverModal(false);
   };
@@ -321,9 +342,13 @@ export default function App() {
           onNavigate={(page) => {
             if (clickMode === 'click') setActivePage(page);
           }}
-          isInteractable={isClickNavigateActive || isClickStayActive || isCensorActive}
+          isInteractable={isClickNavigateActive || isClickStayActive || isCensorActive || isMultiSelectActive}
           onElementClick={handleElementClick}
-          clickedElements={isClickStayActive ? clickedElements.map(el => el.id) : []}
+          clickedElements={
+            isClickStayActive ? clickedElements.map(el => el.id)
+            : isMultiSelectActive ? multiSelectedIds
+            : []
+          }
         />
       </div>
 
@@ -350,9 +375,9 @@ export default function App() {
                 height: rect.height,
                 backdropFilter:        'blur(9px)',
                 WebkitBackdropFilter:  'blur(9px)',
-                background:  'rgba(200, 195, 220, 0.08)',
+                background:  'rgba(9, 117, 215, 0.06)',
                 borderRadius: '4px',
-                border: '1px dashed rgba(139, 92, 246, 0.4)',
+                border: '1px dashed rgba(9, 117, 215, 0.4)',
               }}
               onClick={(e) => { e.stopPropagation(); removeCensorOverlay(id); }}
             >
@@ -550,6 +575,32 @@ export default function App() {
               style={{ order: bannerBelow ? 1 : -1 }}
             >
               <NavigationDisabledBanner />
+            </motion.div>
+          )}
+          {isCensorActive && (
+            <motion.div
+              key="censor"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="w-full relative z-0"
+              style={{ order: bannerBelow ? 1 : -1 }}
+            >
+              <CensorBanner />
+            </motion.div>
+          )}
+          {isMultiSelectActive && (
+            <motion.div
+              key="multi-select"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="w-full relative z-0"
+              style={{ order: bannerBelow ? 1 : -1 }}
+            >
+              <MultiSelectBanner count={multiSelectedIds.length} onConfirm={confirmMultiSelect} />
             </motion.div>
           )}
         </AnimatePresence>
