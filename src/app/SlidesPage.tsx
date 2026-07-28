@@ -514,8 +514,8 @@ function Spark({ size = 22, color = ACCENT, gradient = false }: { size?: number;
       {gradient && (
         <defs>
           <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#5FB2F9" />
-            <stop offset="100%" stopColor="#0975d7" />
+            <stop offset="0%" stopColor="#FFA450" />
+            <stop offset="100%" stopColor="#F55800" />
           </linearGradient>
         </defs>
       )}
@@ -746,9 +746,9 @@ function FirstDraftStage() {
         >
           <Spark size={30} gradient />
           <svg width={26} height={12} viewBox="0 0 26 12" fill="none" className="absolute left-1/2 top-full mt-[2px] -translate-x-1/2">
-            <path d="M4 10 L7 4" stroke="#5FB2F9" strokeWidth={2} strokeLinecap="round" />
-            <path d="M13 11 L13 3" stroke={ACCENT} strokeWidth={2} strokeLinecap="round" />
-            <path d="M22 10 L19 4" stroke="#5FB2F9" strokeWidth={2} strokeLinecap="round" />
+            <path d="M4 10 L7 4" stroke="#FFA450" strokeWidth={2} strokeLinecap="round" />
+            <path d="M13 11 L13 3" stroke="#F55800" strokeWidth={2} strokeLinecap="round" />
+            <path d="M22 10 L19 4" stroke="#FFA450" strokeWidth={2} strokeLinecap="round" />
           </svg>
         </motion.div>
       </At>
@@ -768,7 +768,7 @@ function FirstDraftStage() {
           <span className="grow text-[13.5px]" style={{ color: INK[400] }}>Add your context</span>
           <div
             className="flex size-[46px] shrink-0 items-center justify-center rounded-full"
-            style={{ background: 'linear-gradient(135deg, #5FB2F9 0%, #0975d7 100%)', boxShadow: '0 6px 16px -6px rgba(9,117,215,0.55)' }}
+            style={{ background: 'linear-gradient(135deg, #FFA450 0%, #F55800 100%)', boxShadow: '0 6px 16px -6px rgba(245,88,0,0.5)' }}
           >
             <Spark size={18} color="white" />
           </div>
