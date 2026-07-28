@@ -352,7 +352,7 @@ function BranchVisual() {
       </At>
       <At x={760} y={694} z={3}>
         <motion.div {...enter(0.78)}>
-          <VariantLabel name="Video AI · Recording" />
+          <VariantLabel name="Video AI · Screen + audio + interactions" />
         </motion.div>
       </At>
 
@@ -364,7 +364,7 @@ function BranchVisual() {
       </At>
       <At x={1160} y={694} z={3}>
         <motion.div {...enter(0.86)}>
-          <VariantLabel name="SEEK · Voice co-pilot" />
+          <VariantLabel name="SEEK · Voice co-pilot (Teach mode)" />
         </motion.div>
       </At>
     </>
@@ -381,8 +381,8 @@ const STACK_RIGHT = 1166;        // right edge of the parent chassis
 const STACK_ROWS = [
   { y: 196, label: 'Quick Capture · the chassis', parent: true },
   { y: 336, label: 'Mirror · Captured screens' },
-  { y: 476, label: 'Video AI · Recording' },
-  { y: 616, label: 'SEEK · Voice co-pilot' },
+  { y: 476, label: 'Video AI · Screen + audio + interactions' },
+  { y: 616, label: 'SEEK · Voice co-pilot (Teach mode)' },
 ];
 
 function StackVisual() {
@@ -521,10 +521,9 @@ export default function SlidesPage() {
 
           <motion.div {...enter(0.18)} className="mt-[30px] flex flex-col gap-[16px] text-[15.5px] leading-[25px] text-[var(--ink-600)]">
             <p>
-              We design with{' '}
-              <span className="font-medium text-[var(--ink-900)]">composable primitives</span>, not bespoke
-              UIs: <span className="font-medium text-[var(--ink-900)]">one compute-backed chassis</span>,
-              where any capability that spends compute on the user's behalf plugs in.
+              Every capability captures a different raw input — screen, video, voice,
+              user activity — into{' '}
+              <span className="font-medium text-[var(--ink-900)]">one compute-backed chassis</span>.
               Capture a flow, record a video, plan with SEEK: same surface, same anatomy.
             </p>
           </motion.div>
